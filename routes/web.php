@@ -13,6 +13,82 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+### Acesso restrito ###
+Route::middleware(['auth'])->group(function(){ //Tudo que tiver middleware só será executado se o usuário tiver logado.
+    Route::prefix('admin')->group(function(){
+        Route::get('dashboard', function(){ 
+            return "Página de dashboard";
+        });
+        Route::get('financeiro', function(){
+            return "Página do financeiro";
+        });
+        Route::get('usuarios', function(){
+            return "Página de usuários";
+        });
+    });       
+});
+
+Route::get('login', function(){
+    return "Página de login";
+})->name('login');
+
+### Nome da rota ###
+Route::get('redirect3', function(){
+    return redirect()->route('alterar-produto');
+});
+
+Route::get('alterar-produto-cadastrado', function(){ //O alterar pode ser mudado sem precisar refatorar todo o projeto. Facilita a manutenção!
+    return "Alteração de produto";
+})->name('alterar-produto'); 
+
+### Redirecionamento de Views ###
+Route::redirect('redirect1', 'redirect2');
+
+/*
+Route::get('redirect1', function(){
+    return "Page of redirect1";
+    //return redirect('redirect2');
+});
+*/
+
+Route::get('redirect2', function(){
+    return "Page of redirect2";
+});
+
+### Rotas com ou sem parâmetros ###
+
+Route::get('flexibleflag/{flag?}', function($flag = false){ //Parâmetros dinâmicos
+    if($flag == false){
+        return "No flag. List all products";
+    }else{
+        return "Route with flag. {$flag}";    
+    }    
+});
+
+Route::get('flagbehind/{flag}/plates', function($flag){
+    return "Flag behind routes. Id is {$flag} of plates category.";
+});
+
+Route::get('simpleflag/{flag}', function($flag){ //Flag required before prefix
+    return "Just one Flag required after prefix. The flag is {$flag}";
+});
+
+### Tipos de requisições em rotas ###
+
+Route::match(['get', 'post'], '/cookwithmatch', function () { //Aceita apenas os tipos específcados no array.
+    return "This is cook with match  route.";
+});
+
+Route::any('/cook', function () { //Aceita todos os tipos. Get, Post, Put, Delete.
+    return "This is cook route.";
+});
+
+Route::get('/bathroom', function () { //Rota de teste
+    return view('bathroom');
+});
+
+### View raiz (index) ###
+
 Route::get('/', function () {
     return view('welcome');
 });
