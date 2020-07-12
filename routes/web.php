@@ -14,17 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 ### Acesso restrito ###
-Route::middleware(['auth'])->group(function(){ //Tudo que tiver middleware só será executado se o usuário tiver logado.
-    Route::prefix('admin')->group(function(){
-        Route::get('dashboard', function(){ 
-            return "Página de dashboard";
-        });
-        Route::get('financeiro', function(){
-            return "Página do financeiro";
-        });
-        Route::get('usuarios', function(){
-            return "Página de usuários";
-        });
+Route::middleware([])->group(function(){ //Tudo que tiver middleware só será executado se o usuário tiver logado. //caso houver auth no array ele vai restringir o acesso.
+    Route::prefix('admin')->group(function(){ //todas as rotas vai ficar com /admin/...
+        Route::name('admin')->group(function(){ //todos os names ficam com admin
+            //Route::get('usuarios', function(){
+            //    return "Página de usuários";
+            //})->name('admin-usuarios');
+            Route::get('dashboard', 'admin\TesteController@dashboard')->name('dashboard');  //rota: admin/dashboard | @ chama a função testar | name: admin.dashboard 
+            Route::get('financeiro', 'admin\TesteController@financeiro')->name('financeiro');
+            Route::get('usuarios', 'admin\TesteController@usuarios')->name('usuarios');            
+            Route::get('/', function(){ //Redirecionar página para admin/dashboard ao entrar em /admin
+                return redirect()->route('admin.dashboard'); //Na função route é informado o name da rota.
+            })->name('home');
+        });        
     });       
 });
 
