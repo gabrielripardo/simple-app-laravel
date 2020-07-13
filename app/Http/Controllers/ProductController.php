@@ -11,6 +11,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $request;
+
+    public function __construct(Request $request)
+    {   
+        $this->$request = $request;
+    }
+
     public function index()
     {
         $fruits = ['Apple', 'Orange', 'Strawberry', 'Cherry'];
