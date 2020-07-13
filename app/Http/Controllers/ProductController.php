@@ -6,33 +6,81 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(){ //Lista todos 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
         $fruits = ['Apple', 'Orange', 'Strawberry', 'Cherry'];
 
         return $fruits;
     }
 
-    public function show($id){ //Mostra os detalhes 
-        return "Detalhes do produto com id: {$id}";        
-    }
-
-    public function create(){ //Formulário de cadastro 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
         return "Formulário para cadastrar produto";        
     }
 
-    public function edit($id){ //Formulário para editar
-        return "Formulário para cadastrar o produto com id: {$id}";        
-    }
-
-    public function store(){ //Armazena 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         return "Armazena novo produto";        
     }
 
-    public function update($id){ //Edita
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return "Detalhes do produto com id: {$id}";        
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        return "Formulário para editar o produto com id: {$id}";           
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
         return "Edita o produto com id: {$id}";        
     }
- 
-    public function delete($id){ //Deleta
-        return "Deleta o produto com id: {$id}";        
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return "Deleta o produto com id: {$id}";       
     }
 }
