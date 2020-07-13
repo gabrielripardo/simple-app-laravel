@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 ### Crud Products with resource ###
 Route::resource('produtos', 'ProductController');
+//Route::resource('produtos', 'ProductController')->middleware('auth');
 
 ### Acesso restrito ###
 Route::middleware([])->group(function(){ //Tudo que tiver middleware só será executado se o usuário tiver logado. //caso houver auth no array ele vai restringir o acesso.

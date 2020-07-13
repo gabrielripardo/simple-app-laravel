@@ -16,6 +16,12 @@ class ProductController extends Controller
     public function __construct(Request $request)
     {   
         $this->$request = $request;
+
+        //Bloqueado = usuário precisa realizar o login para acessá-los.
+        //$this->middleware('auth'); //Todos os métodos estão bloqueados
+        $this->middleware('auth')->only(['create', 'store', 'update', 'edit', 'destroy']); //Todos esses métodos estão bloqueados.
+        //$this->middleware('auth')->except(['index', 'show']); //Todos os métodos estão com bloqueio exceto index() e show().
+        
     }
 
     public function index()
