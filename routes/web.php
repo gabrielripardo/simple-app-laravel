@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+### Crud Products ###
+Route::delete('produtos/{id}', 'ProductController@delete')->name('products.delete'); //Deleta produto
+Route::put('produtos/{id}/update', 'ProductController@update')->name('products.update'); //Altera o produto
+Route::get('produtos/{id}/edit', 'ProductController@edit')->name('products.edit'); //Formulário para editar produto
+Route::get('produtos/{id}', 'ProductController@show')->name('products.show'); //Detalhes do produto
+Route::get('produtos', 'ProductController@index')->name('products.index'); //Lista os produtos
+Route::get('produtos/create', 'ProductController@create')->name('products.create'); //Formulário para cadastrar o produto
+Route::post('produtos', 'ProductController@store')->name('products.store'); //Armazenar o produto
+
 ### Acesso restrito ###
 Route::middleware([])->group(function(){ //Tudo que tiver middleware só será executado se o usuário tiver logado. //caso houver auth no array ele vai restringir o acesso.
     Route::prefix('admin')->group(function(){ //todas as rotas vai ficar com /admin/...
