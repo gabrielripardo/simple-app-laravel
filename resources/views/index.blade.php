@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Teste com página inicial</h1>
-    {{$name}}
+    <h1>{{$name}}</h1>
+    {!!$namehtml!!}
 </body>
 </html>

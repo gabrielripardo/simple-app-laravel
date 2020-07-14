@@ -26,9 +26,11 @@ class ProductController extends Controller
 
     public function index()
     {
-        $name = "apple";
+        $name = "This is test"; //Utilizado para a tag {{name}}
+        $namehtml = "<h1>This is test</h1>"; //Utilizado para a tag {!! name !!}. Utilizado somente em caso em que o conteúdo é bem definido, pois pode gerar vulnerabilidades para ataques xss.
+
         //return view('index', ['name' => $name]);
-        return view('index', compact('name')); //compact é uma função que em essência é um array que contém as variáveis. Nesse caso foi passado somente o nome da variável.
+        return view('index', compact('name', 'namehtml')); //compact é uma função que em essência é um array que contém as variáveis. Nesse caso foi passado somente o nome da variável.
     }
 
     /**
