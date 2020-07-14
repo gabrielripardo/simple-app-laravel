@@ -26,9 +26,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        $fruits = ['Apple', 'Orange', 'Strawberry', 'Cherry'];
-
-        return $fruits;
+        $name = "apple";
+        //return view('index', ['name' => $name]);
+        return view('index', compact('name')); //compact é uma função que em essência é um array que contém as variáveis. Nesse caso foi passado somente o nome da variável.
     }
 
     /**
