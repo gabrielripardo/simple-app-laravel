@@ -6,8 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') - Simple App</title>
 </head>
-<body>
+<body>    
     @yield('content')
+
+    @if (isset($teste3))
+        @foreach ($teste3 as $product)            
+            <p class="@if ($loop->last) last @endif">{{$product}}</p>
+        @endforeach
+    @endif
+    
+    <hr>
+
+    @forelse ($teste3 as $product)
+        <p>{{$product}}</p>
+    @empty
+        <p>Não existem produtos cadastrados.</p>
+    @endforelse
 
     @if ($num === 4)
         <h3>The number is equal to 7</h3>
@@ -71,3 +85,9 @@
 
 </body>
 </html>
+
+<style>
+    .last{
+        background-color: #CCC;
+    }    
+</style>

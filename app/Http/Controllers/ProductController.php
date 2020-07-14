@@ -28,12 +28,13 @@ class ProductController extends Controller
     {
         $testEmpty = "123";
         $num = 7;
+        $teste3 = [1, 2, 3, 4, 5];
         $name = "This is test"; //Utilizado para a tag {{name}}
         $namehtml = "<h1>This is test</h1>"; //Utilizado para a tag {!! name !!}. Utilizado somente em caso em que o conteúdo é bem definido, pois pode gerar vulnerabilidades para ataques xss.
 
         //return view('index', ['name' => $name]);
         //return view('index', compact('name', 'namehtml')); //compact é uma função que em essência é um array que contém as variáveis. Nesse caso foi passado somente o nome da variável.
-        return view('admin.pages.products.index', compact('name', 'namehtml', 'num', 'testEmpty'));
+        return view('admin.pages.products.index', compact('name', 'namehtml', 'num', 'testEmpty', 'teste3'));
     }
 
     /**
