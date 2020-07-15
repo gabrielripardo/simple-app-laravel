@@ -3,6 +3,15 @@
 @section('title', 'Cadastro de Produto');
 
 @section('content')
+
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>        
+    @endif
+
     <h1>Cadastrar novo produto</h1>
     <form action="{{ route('products.store') }}" method="POST">        
         @csrf <!-- Token para validar o cadastro -->
