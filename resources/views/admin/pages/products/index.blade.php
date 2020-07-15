@@ -15,5 +15,20 @@
             <h4>Conteúdo do Card Body</h4>
     @endcomponent
 
+    @push('styles')
+        <style>
+            .last{
+                background-color:chartreuse;
+            }    
+        </style>
+    @endpush
+
+    @push('scripts')
+        <script>
+            document.body.style.background = '#000';
+        </script>
+    @endpush
+    
 @endsection
+
 
