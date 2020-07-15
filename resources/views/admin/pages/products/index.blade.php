@@ -86,10 +86,10 @@
             @case(3)
                 Igual a 3
                 @break
-            @case(4)
+            @case(4) 
                 Igual a 4
                 @break
-            @case(5)
+            {{-- @case(5) --}} <!-- CTRL+K+C para comentar blade-->
                 Igual a 5
                 @break
             @case(6)

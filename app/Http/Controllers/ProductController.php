@@ -54,10 +54,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        echo "Armazena novo produto";        
-        dd('Cadastrando...');
+        //echo "Armazena novo produto";        
+        //dd('Cadastrando...');
+        //dd($request->all());
+        //dd($request->name);
+        //dd($request->only(['name', 'description']));
+        //dd($request->input('name', 'description'));        
+        echo "Nome: ".$request->name." | Description: ".$request->description;
     }
 
     /**
@@ -90,8 +95,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {        
         dd("Editando o produto com id: {$id}");
+        //dd($request->all());
+        //dd($request->name);
     }
 
     /**
