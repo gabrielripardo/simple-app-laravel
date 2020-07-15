@@ -19,7 +19,7 @@ class ProductController extends Controller
 
         //Bloqueado = usuário precisa realizar o login para acessá-los.
         //$this->middleware('auth'); //Todos os métodos estão bloqueados
-        $this->middleware('auth')->only(['create', 'store', 'update', 'edit', 'destroy']); //Todos esses métodos estão bloqueados.
+        //$this->middleware('auth')->only(['create', 'store', 'update', 'edit', 'destroy']); //Todos esses métodos estão bloqueados.
         //$this->middleware('auth')->except(['index', 'show']); //Todos os métodos estão com bloqueio exceto index() e show().
         
     }
@@ -44,7 +44,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return "Formulário para cadastrar produto";        
+        // echo "Formulário do cadastro do produto.";
+        return view('admin/pages/products/create');
     }
 
     /**
@@ -53,9 +54,10 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        return "Armazena novo produto";        
+        echo "Armazena novo produto";        
+        dd('Cadastrando...');
     }
 
     /**
