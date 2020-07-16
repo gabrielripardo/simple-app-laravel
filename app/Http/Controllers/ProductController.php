@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateProductRequest;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store as SessionStore;
 
 class ProductController extends Controller
 {
@@ -51,15 +54,15 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreUpdateProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProductRequest $request)
     {
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-            'descrition' => 'nullable|min:3|max:1000', 
-        ]);
+        // $request->validate([
+        //     'name' => 'required|min:3|max:255',
+        //     'descrition' => 'nullable|min:3|max:1000', 
+        // ]);
         //echo "Armazena novo produto";        
         //dd('Cadastrando...');
         //dd($request->all());
@@ -67,6 +70,7 @@ class ProductController extends Controller
         //dd($request->only(['name', 'description']));
         //dd($request->input('name', 'description'));        
         echo "Nome: ".$request->name." | Description: ".$request->description;
+        
     }
 
     /**
