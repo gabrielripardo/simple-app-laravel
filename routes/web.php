@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('produtos/create', 'ProductController@create')->name('products.create'); //Formulário para cadastrar o produto
 Route::post('produtos', 'ProductController@store')->name('products.store'); //Armazenar o produto
-Route::delete('produtos/{id}', 'ProductController@delete')->name('products.delete'); //Deleta produto
+Route::delete('produtos/{id}', 'ProductController@destroy')->name('products.destroy'); //Deleta produto
 Route::put('produtos/{id}/update', 'ProductController@update')->name('products.update'); //Altera o produto
 Route::get('produtos/{id}/edit', 'ProductController@edit')->name('products.edit'); //Formulário para editar produto
 Route::get('produtos/{id}', 'ProductController@show')->name('products.show'); //Detalhes do produto

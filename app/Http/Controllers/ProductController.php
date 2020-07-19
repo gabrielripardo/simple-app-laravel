@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateProductRequest;
+use App\Models\Product;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store as SessionStore;
@@ -28,16 +29,12 @@ class ProductController extends Controller
     }
 
     public function index()
-    {
-        $testEmpty = "123";
-        $num = 7;
-        $teste3 = [1, 2, 3, 4, 5];
-        $name = "This is test"; //Utilizado para a tag {{name}}
-        $namehtml = "<h1>This is test</h1>"; //Utilizado para a tag {!! name !!}. Utilizado somente em caso em que o conteúdo é bem definido, pois pode gerar vulnerabilidades para ataques xss.
+    {        
+        $products =  Product::all();
+        //$products = ['orange', 'apple', 'strawberry', 'papaia'];
 
-        //return view('index', ['name' => $name]);
-        //return view('index', compact('name', 'namehtml')); //compact é uma função que em essência é um array que contém as variáveis. Nesse caso foi passado somente o nome da variável.
-        return view('admin.pages.products.index', compact('name', 'namehtml', 'num', 'testEmpty', 'teste3'));
+        return view('admin.pages.products.index', ['products' => $products]);
+        //return view('index', compact('name', 'namehtml')); //Compact foi descontinuado nas versões atuais do PHP
     }
 
     /**
@@ -59,18 +56,11 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductRequest $request)
     {
-        // $request->validate([
-        //     'name' => 'required|min:3|max:255',
-        //     'descrition' => 'nullable|min:3|max:1000', 
-        // ]);
-        //echo "Armazena novo produto";        
-        //dd('Cadastrando...');
-        //dd($request->all());
-        //dd($request->name);
-        //dd($request->only(['name', 'description']));
-        //dd($request->input('name', 'description'));        
-        echo "Nome: ".$request->name." | Description: ".$request->description;
-        
+        $data = $request->only('name', 'description', 'price');
+
+        Product::create($data);
+
+        return redirect()->route('products.index');        
     }
 
     /**
@@ -81,7 +71,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return "Detalhes do produto com id: {$id}";        
+        $product = Product::find($id);
+        if(!$product)
+            return redirect()->back();  
+
+        //dd($product);
+        //return "Detalhes do produto com id: {$id}";        
+        return view('admin.pages.products.show', ['product' => $product]);
     }
 
     /**
@@ -92,7 +88,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.products.edit', compact('id'));
+        $product = Product::find($id);
+        if(!$product)
+            return redirect()->back();  
+
+        return view('admin.pages.products.edit', compact('product'));
     }
 
     /**
@@ -104,9 +104,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {        
-        dd("Editando o produto com id: {$id}");
-        //dd($request->all());
-        //dd($request->name);
+        $product = Product::find($id);
+        if(!$product)
+            return redirect()->back();  
+
+        $product->update($request->all());
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -117,6 +121,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return "Deleta o produto com id: {$id}";       
+        $product = Product::where('id', $id)->first();
+
+        if(!$product)
+            return redirect()->back();
+
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 }
