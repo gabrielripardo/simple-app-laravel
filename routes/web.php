@@ -101,4 +101,3 @@ Route::get('/', function () {
 Auth::routes();
 
 //Route::get('produtos', 'ProductController@index')->name('products.index'); //Lista os produtos
-Route::get('/home', 'HomeController@index')->name('home');
