@@ -108,3 +108,7 @@ Route::get('/bathroom', function () { //Rota de teste
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

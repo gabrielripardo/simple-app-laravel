@@ -4,7 +4,7 @@
     
 @section('content')
     @include('admin/includes/alerts/alerts', ['msg' => 'Mensagem de sucesso ou de erro.']) <!-- Alert com mensagem --> 
-  
+    
     <h1>Exibindo produtos...</h1>     
 
     <a class="btn btn-primary" href="{{ route('products.create') }}">Cadastrar produto</a>
@@ -52,7 +52,7 @@
 
     @push('scripts')
         <script>
-            document.body.style.background = '#000';
+            //document.body.style.background = '#000';
         </script>
     @endpush      
 @endsection
