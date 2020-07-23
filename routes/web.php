@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 //Route::resource('produtos', 'ProductController');
 //Route::resource('produtos', 'ProductController')->middleware('auth');
 
+Route::any('produtos/search', 'ProductController@search')->name('products.search');
+
 Route::get('produtos/create', 'ProductController@create')->name('products.create'); //Formulário para cadastrar o produto
 Route::post('produtos', 'ProductController@store')->name('products.store'); //Armazenar o produto
 Route::delete('produtos/{id}', 'ProductController@destroy')->name('products.destroy'); //Deleta produto

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateProductRequest;
+use App\Models\Categories;
 use App\Models\Product;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
@@ -45,7 +46,10 @@ class ProductController extends Controller
     public function create()
     {
         // echo "Formulário do cadastro do produto.";
-        return view('admin/pages/products/create');
+        $categories = Categories::all();
+        if(!$categories)
+            return redirect()->back();  
+        return view('admin/pages/products/create', ['categories' => $categories]);
     }
 
     /**
@@ -56,11 +60,18 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductRequest $request)
     {
-        $data = $request->only('name', 'description', 'price');
+        $data = $request->only('name', 'description', 'price', 'category');
+        
+        if($request->hasFile('image') AND $request->file('image')->isValid()){
+            $path = 'imagem-'.$data['name'].'.png';
+            $request->file('image')->storeAs('public/products', $path);
+            $data['image'] = $path;
+        }
 
         Product::create($data);
 
-        return redirect()->route('products.index');        
+        return redirect()->route('products.index');
+        
     }
 
     /**
@@ -72,12 +83,17 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        if(!$product)
+        $category = null;
+        
+        if(!$product){
             return redirect()->back();  
-
+        }else{
+            $category = Categories::find($product->category);             
+        }
+                            
         //dd($product);
         //return "Detalhes do produto com id: {$id}";        
-        return view('admin.pages.products.show', ['product' => $product]);
+        return view('admin.pages.products.show', ['product' => $product, 'category' => $category]);
     }
 
     /**
@@ -89,10 +105,12 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        $categories = Categories::all();
+
         if(!$product)
             return redirect()->back();  
 
-        return view('admin.pages.products.edit', compact('product'));
+        return view('admin.pages.products.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**
@@ -104,13 +122,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {        
-        $product = Product::find($id);
+        $product = Product::find($id);        
+
         if(!$product)
             return redirect()->back();  
 
-        $product->update($request->all());
+        $data = $request->only('name', 'description', 'price', 'category');
 
-        return redirect()->route('products.index');
+        if($request->hasFile('image') AND $request->file('image')->isValid()){
+            $path = 'imagem-'.$data['name'].'.png';
+            $request->file('image')->storeAs('public/products', $path);
+            $data['image'] = $path;
+        }
+        
+        $product->update($data);
+
+        return redirect()->route('products.index');        
     }
 
     /**
@@ -129,5 +156,19 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index');
+    }
+
+    public function search(Request $request){
+        //dd($request->all()); 
+
+        $filters = $request->except('_token');
+
+        $products = new Product();
+        $products = $products->search($request->filter);
+
+        return view('admin.pages.products.index', [
+            'products' => $products,
+            'filters' => $filters,
+        ]);
     }
 }

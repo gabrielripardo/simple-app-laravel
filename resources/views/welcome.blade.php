@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Aplicação em Laravel</title>
+        <title>E-commerce em Laravel</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -67,37 +67,39 @@
     </head>
     <body>        
         <div id="app">            
-            <test-component></test-component>            
-
             <div class="flex-center position-ref full-height">
-                @if (Route::has('login'))
+                {{-- @if (Route::has('login'))
                     <div class="top-right links">
                         @auth
                             <a href="{{ url('/home') }}">Início</a>
                         @else
                             <a href="{{ route('login') }}">Login</a>
     
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <a href="{{ route('register') }}">Registrar</a>
-                            @endif
-                        @endauth
-                    </div>
-                @endif
+                            @endif --}}
+                        {{-- @endauth --}}
+                    {{-- </div> --}}
+                {{-- @endif  --}}
     
                 <div class="content">
                     <div class="title m-b-md">
-                        Pequena aplicação feita em Laravel
+                        My E-commerce
                     </div>
-    
-                    <div class="links">
-                        <a href="https://laravel.com/docs">Docs</a>
-                        <a href="https://laracasts.com">Laracasts</a>
-                        <a href="https://laravel-news.com">News</a>
-                        <a href="https://blog.laravel.com">Blog</a>
-                        <a href="https://nova.laravel.com">Nova</a>
-                        <a href="https://forge.laravel.com">Forge</a>
-                        <a href="https://vapor.laravel.com">Vapor</a>
-                        <a href="https://github.com/laravel/laravel">GitHub</a>
+                    
+                    <div class="links">       
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/produtos') }}">Início</a>
+                            @else
+                                <a href="{{ route('login') }}">Login</a>    
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}">Registrar</a>
+                                @endif 
+                            @endauth
+                        @endif
+                                                                    
+                        <a href="https://github.com/gabrielripardo/simple--e-commerce">GitHub</a>
                     </div>
                 </div>
             </div>    

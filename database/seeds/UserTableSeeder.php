@@ -13,13 +13,13 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         //Criando vários usuário de uma vez
-        factory(User::class, 10)->create();
+        //factory(User::class, 10)->create();
         
         //Criando apenas um usuário
-        // User::create([  
-        //     'name' => 'Gabriel Ripardo',
-        //     'email' => 'gts.senna@gmail.com',
-        //     'password' => bcrypt('123456'),
-        // ]);
+        User::create([  
+            'name' => 'My name is Random User',
+            'email' => 'teste@mail.com',
+            'password' => bcrypt('123456'),
+        ]);
     }
 }

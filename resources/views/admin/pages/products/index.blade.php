@@ -5,9 +5,19 @@
 @section('content')
     @include('admin/includes/alerts/alerts', ['msg' => 'Mensagem de sucesso ou de erro.']) <!-- Alert com mensagem --> 
     
-    <h1>Exibindo produtos...</h1>     
-
-    <a class="btn btn-primary" href="{{ route('products.create') }}">Cadastrar produto</a>
+    <h1>Listagem de produtos</h1>     
+    
+    <div id="search-area" class="pb-3 pt-2">                
+        <form action="{{ route('products.search') }}" method="POST">                
+            <div class="input-group mb-2">                
+                @csrf
+                <input type="text" class="form-control" placeholder="Nome do produto" name="filter" value="{{ $filters['filter'] ?? ''}}">
+                <div class="input-group-prepend">
+                    <button class="btn btn-primary" type="submit">Procurar</button>                    
+                </div>
+            </div>
+        </form>            
+    </div>                            
     
     <table class="table table-striped">
         <thead>

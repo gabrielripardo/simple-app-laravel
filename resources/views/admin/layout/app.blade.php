@@ -22,12 +22,16 @@
 <body>        
     <div class="container">
         <div id="app">                    
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-3">
                 <div class="container">                                                        
                         <a class="navbar-brand" href="{{ url('/') }}">
                             My E-commerce
                         </a>
-                        <a class="nav-link" href="{{ route('products.index') }}" > Produtos </a>
+                        <a class="nav-link" href="{{ route('products.index') }}" >Listar produtos</a>
+                        <a class="nav-link" href="{{ route('products.create') }}">Cadastrar produto</a>
+                        {{-- @if ($products)
+                            
+                        @endif --}}
                                     
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -73,9 +77,11 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
-            <menubar-component></menubar-component>      
-            @yield('content')  
+            </nav>    
+            <div class="pt-3">
+                @yield('content')  
+            </div>        
+            
         </div>        
 
     </div>          

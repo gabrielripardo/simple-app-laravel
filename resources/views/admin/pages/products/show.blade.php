@@ -4,11 +4,23 @@
     
 @section('content')
     <h1>{{$product->name}}</h1>
-    <ul>
-        <li><strong>Nome: </strong>{{$product->name}}</li>
-        <li><strong>Price: </strong>{{$product->price}}</li>
-        <li><strong>Description: </strong>{{$product->description}}</li>
-    </ul>
+
+    <div class="row">
+        <div class="col">
+            <ul>
+                <li><strong>Nome: </strong>{{$product->name}}</li>
+                <li><strong>Categoria: </strong>{{$category->name}}</li>
+                <li><strong>Preço: </strong>{{$product->price}}</li>        
+                <li><strong>Descrição: </strong>{{$product->description}}</li>
+            </ul>
+        </div>
+        @if ($product->image)
+            <div class="col-3">
+                <strong>Imagem: </strong>
+                <img src="{{ url("storage/products/{$product->image}") }}" alt="{{ $product->image }}" style="max-width: 200px;">                        
+            </div>    
+        @endif        
+    </div>    
 
     <form action="{{ route('products.destroy', $product->id) }}" method="POST">
         @csrf

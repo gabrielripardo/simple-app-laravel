@@ -11,6 +11,14 @@
         <div class="form-group">
             <input class="form-control" type="text" name="name" placeholder="name" value="{{ old('name') }}">
         </div>
+        <div class="form-group">            
+            <select class="form-control" name="category" id="category">                
+                <option value="">Selecione uma categoria</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach                
+            </select>
+        </div>
         <div class="form-group">
             <input class="form-control" type="text" name="description" placeholder="your description" value="{{ old('description') }}">        
         </div>
